@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix | Music Selector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,600&family=Karla:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Raleway', sans-serif;
+    background: #000 url('background.jpg') center center / cover no-repeat;
+    color: #f5f0e6;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-zone {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 6vh 0 0 32px;
+  }
+  .brand-block { display: block; }
+  .brand-title {
+    display: block;
+    font-family: 'Karla', sans-serif;
+    font-weight: 200;
+    letter-spacing: 0;
+    color: #8ecdfb;
+    font-size: clamp(64px, 11vw, 180px);
+    line-height: 1;
+    transition: font-size .5s ease, letter-spacing .5s ease, opacity .5s ease;
+  }
+  .brand-subtitle {
+    display: block;
+    font-family: 'Karla', sans-serif;
+    font-weight: 200;
+    letter-spacing: 1px;
+    color: #8ecdfb;
+    font-size: clamp(24px, 3.5vw, 56px);
+    line-height: 1.2;
+    margin-top: 0;
+    opacity: 1;
+    transition: font-size .5s ease, opacity .5s ease, margin .5s ease;
+  }
+  .brand-block.shrunk .brand-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+  }
+  .brand-block.shrunk .brand-subtitle {
+    font-size: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .section-title {
+    display: block;
+    font-family: 'Karla', sans-serif;
+    font-weight: 200;
+    letter-spacing: 0;
+    color: #8ecdfb;
+    font-size: 0;
+    line-height: 1;
+    opacity: 0;
+    transition: font-size .5s ease, opacity .5s ease;
+  }
+  .section-title.visible {
+    font-size: clamp(64px, 11vw, 180px);
+    opacity: 1;
+  }
+
+  .content-zone {
+    flex: 1;
+    position: relative;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+  }
+  .panel {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    max-width: 460px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .panel.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .panel p {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #f5f0e6;
+  }
+  .panel iframe { border: none; width: 100%; }
+
+  .player { display: flex; align-items: center; gap: 14px; }
+  .play-btn {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #8ecdfb;
+    background: none;
+    color: #8ecdfb;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .3s ease;
+  }
+  .play-btn:hover { background: rgba(142, 205, 251, .15); }
+  .scrub-track {
+    flex: 1;
+    height: 2px;
+    background: rgba(245, 240, 230, .25);
+    cursor: pointer;
+    position: relative;
+  }
+  .scrub-fill { height: 100%; width: 0%; background: #8ecdfb; }
+  .time {
+    flex: 0 0 auto;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    color: #f5f0e6;
+    opacity: .75;
+    min-width: 32px;
+  }
+  .sc-attribution {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f5f0e6;
+    opacity: .5;
+    text-decoration: none;
+  }
+  .sc-attribution:hover { opacity: .9; }
+
+  .bottom-nav {
+    flex: 0 0 auto;
+    padding: 0 32px 36px;
+  }
+  .bottom-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+  }
+  .bottom-nav a, .bottom-nav button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f5f0e6;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .3s ease;
+  }
+  .bottom-nav a:hover, .bottom-nav button:hover, .bottom-nav button.active { color: #8ecdfb; }
+  .home-btn { display: none; }
+  .home-btn.visible { display: inline-block; }
+  .bottom-nav button.hidden, .bottom-nav a.hidden { display: none; }
+
+  @media (max-width: 600px) {
+    .hero-zone { padding-left: 20px; }
+    .content-zone { padding: 0 20px; }
+    .panel { left: 20px; right: 20px; max-width: none; }
+    .bottom-nav { padding: 0 20px 24px; }
+    .bottom-nav ul { gap: 18px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero-zone">
+    <div class="brand-block">
+      <span class="brand-title">Phoenix</span>
+      <span class="brand-subtitle">Music Selector</span>
+    </div>
+    <span id="section-title" class="section-title"></span>
+  </div>
+
+  <div class="content-zone">
+    <div id="panel-about" class="panel">
+      <p>Replace this with your About text &mdash; a few lines on who Phoenix is and the sound.</p>
+    </div>
+
+    <div id="panel-music" class="panel">
+      <div class="player">
+        <button type="button" id="play-btn" class="play-btn" aria-label="Play">&#9654;</button>
+        <div class="scrub-track" id="scrub-track"><div class="scrub-fill" id="scrub-fill"></div></div>
+        <span class="time" id="time-display">0:00</span>
+      </div>
+      <a class="sc-attribution" href="https://soundcloud.com/phoenixrox/light-side-of-the-moon-phoenix" target="_blank" rel="noopener">Light Side of the Moon</a>
+      <iframe id="sc-iframe" style="width:1px;height:1px;position:absolute;left:-9999px;" scrolling="no" frameborder="no"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/15621148&auto_play=false">
+      </iframe>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <ul>
+      <li><button type="button" id="home-btn" class="home-btn">Home</button></li>
+      <li><button type="button" data-panel="panel-about" data-label="About">About</button></li>
+      <li><button type="button" data-panel="panel-music" data-label="Music">Music</button></li>
+      <li><a href="https://open.spotify.com/user/phoenixrox" target="_blank" rel="noopener">Spotify</a></li>
+      <li><a href="mailto:phoenixroxme@gmail.com" id="contact-link" class="contact-link">Contact</a></li>
+    </ul>
+  </nav>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script>
+  var buttons = document.querySelectorAll('nav button[data-panel]');
+  var panels = document.querySelectorAll('.panel');
+  var brandBlock = document.querySelector('.brand-block');
+  var sectionTitle = document.getElementById('section-title');
+  var homeBtn = document.getElementById('home-btn');
+  var contactLink = document.getElementById('contact-link');
+
+  function closeAll() {
+    panels.forEach(function (p) { p.classList.remove('visible'); });
+    buttons.forEach(function (b) { b.classList.remove('active'); b.classList.remove('hidden'); });
+    brandBlock.classList.remove('shrunk');
+    sectionTitle.classList.remove('visible');
+    homeBtn.classList.remove('visible');
+    contactLink.classList.remove('hidden');
+  }
+
+  contactLink.addEventListener('click', function () {
+    contactLink.classList.add('hidden');
+    homeBtn.classList.add('visible');
+  });
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetId = btn.getAttribute('data-panel');
+      var label = btn.getAttribute('data-label');
+      var isOpen = document.getElementById(targetId).classList.contains('visible');
+
+      closeAll();
+
+      if (!isOpen) {
+        document.getElementById(targetId).classList.add('visible');
+        btn.classList.add('active');
+        btn.classList.add('hidden');
+        brandBlock.classList.add('shrunk');
+        sectionTitle.textContent = label;
+        sectionTitle.classList.add('visible');
+        homeBtn.classList.add('visible');
+      }
+    });
+  });
+
+  homeBtn.addEventListener('click', closeAll);
+
+  var scWidget = SC.Widget('sc-iframe');
+  var playBtn = document.getElementById('play-btn');
+  var scrubTrack = document.getElementById('scrub-track');
+  var scrubFill = document.getElementById('scrub-fill');
+  var timeDisplay = document.getElementById('time-display');
+  var scPlaying = false;
+  var scDuration = 0;
+
+  function formatTime(ms) {
+    var totalSeconds = Math.floor(ms / 1000);
+    var mins = Math.floor(totalSeconds / 60);
+    var secs = totalSeconds % 60;
+    return mins + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+
+  scWidget.bind(SC.Widget.Events.READY, function () {
+    scWidget.getDuration(function (d) { scDuration = d; });
+  });
+
+  scWidget.bind(SC.Widget.Events.PLAY_PROGRESS, function (data) {
+    if (scDuration) {
+      scrubFill.style.width = ((data.currentPosition / scDuration) * 100) + '%';
+      timeDisplay.textContent = formatTime(data.currentPosition);
+    }
+  });
+
+  scWidget.bind(SC.Widget.Events.FINISH, function () {
+    scPlaying = false;
+    playBtn.innerHTML = '&#9654;';
+  });
+
+  playBtn.addEventListener('click', function () {
+    if (scPlaying) {
+      scWidget.pause();
+      playBtn.innerHTML = '&#9654;';
+    } else {
+      scWidget.play();
+      playBtn.innerHTML = '&#10074;&#10074;';
+    }
+    scPlaying = !scPlaying;
+  });
+
+  scrubTrack.addEventListener('click', function (e) {
+    if (!scDuration) return;
+    var rect = scrubTrack.getBoundingClientRect();
+    var pct = (e.clientX - rect.left) / rect.width;
+    scWidget.seekTo(pct * scDuration);
+  });
+</script>
+</body>
+</html>
