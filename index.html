@@ -6,7 +6,7 @@
 <title>Phoenix | Music Selector</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,600&family=Karla:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,600&family=Urbanist:wght@100;300&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
@@ -27,56 +27,67 @@
     justify-content: flex-start;
     padding: 6vh 0 0 32px;
   }
-  .brand-block { display: block; }
+  .hero-stack {
+    position: relative;
+    min-height: calc(clamp(64px, 11vw, 180px) + clamp(24px, 3.5vw, 56px) + 20px);
+  }
+  .brand-big {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    transition: opacity 1.8s ease-in-out;
+  }
+  .brand-big.hidden-fade { opacity: 0; pointer-events: none; }
   .brand-title {
     display: block;
-    font-family: 'Karla', sans-serif;
-    font-weight: 200;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 100;
     letter-spacing: 0;
     color: #8ecdfb;
     font-size: clamp(64px, 11vw, 180px);
     line-height: 1;
-    transition: font-size .5s ease, letter-spacing .5s ease, opacity .5s ease;
   }
   .brand-subtitle {
     display: block;
-    font-family: 'Karla', sans-serif;
-    font-weight: 200;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 100;
     letter-spacing: 1px;
     color: #8ecdfb;
     font-size: clamp(24px, 3.5vw, 56px);
     line-height: 1.2;
-    margin-top: 0;
-    opacity: 1;
-    transition: font-size .5s ease, opacity .5s ease, margin .5s ease;
   }
-  .brand-block.shrunk .brand-title {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-  }
-  .brand-block.shrunk .brand-subtitle {
-    font-size: 0;
-    opacity: 0;
-    margin-top: 0;
-  }
-  .section-title {
+  .brand-small {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: block;
-    font-family: 'Karla', sans-serif;
-    font-weight: 200;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #8ecdfb;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.8s ease-in-out;
+  }
+  .brand-small.visible { opacity: 1; }
+  .section-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 100;
     letter-spacing: 0;
     color: #8ecdfb;
-    font-size: 0;
+    font-size: clamp(64px, 11vw, 180px);
     line-height: 1;
     opacity: 0;
-    transition: font-size .5s ease, opacity .5s ease;
+    pointer-events: none;
+    transition: opacity 1.8s ease-in-out;
   }
-  .section-title.visible {
-    font-size: clamp(64px, 11vw, 180px);
-    opacity: 1;
-  }
+  .section-title.visible { opacity: 1; }
 
   .content-zone {
     flex: 1;
@@ -92,13 +103,11 @@
     max-width: 460px;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(12px);
-    transition: opacity .5s ease, transform .5s ease;
+    transition: opacity 1.8s ease-in-out;
   }
   .panel.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
   }
   .panel p {
     font-weight: 300;
@@ -179,9 +188,6 @@
     transition: color .3s ease;
   }
   .bottom-nav a:hover, .bottom-nav button:hover, .bottom-nav button.active { color: #8ecdfb; }
-  .home-btn { display: none; }
-  .home-btn.visible { display: inline-block; }
-  .bottom-nav button.hidden, .bottom-nav a.hidden { display: none; }
 
   @media (max-width: 600px) {
     .hero-zone { padding-left: 20px; }
@@ -195,11 +201,14 @@
 <body>
 
   <div class="hero-zone">
-    <div class="brand-block">
-      <span class="brand-title">Phoenix</span>
-      <span class="brand-subtitle">Music Selector</span>
+    <div class="hero-stack">
+      <div id="brand-big" class="brand-big">
+        <span class="brand-title">Phoenix</span>
+        <span class="brand-subtitle">Music Selector</span>
+      </div>
+      <span id="brand-small" class="brand-small">Phoenix</span>
+      <span id="section-title" class="section-title"></span>
     </div>
-    <span id="section-title" class="section-title"></span>
   </div>
 
   <div class="content-zone">
@@ -222,11 +231,10 @@
 
   <nav class="bottom-nav">
     <ul>
-      <li><button type="button" id="home-btn" class="home-btn">Home</button></li>
       <li><button type="button" data-panel="panel-about" data-label="About">About</button></li>
       <li><button type="button" data-panel="panel-music" data-label="Music">Music</button></li>
       <li><a href="https://open.spotify.com/user/phoenixrox" target="_blank" rel="noopener">Spotify</a></li>
-      <li><a href="mailto:phoenixroxme@gmail.com" id="contact-link" class="contact-link">Contact</a></li>
+      <li><a href="mailto:phoenixroxme@gmail.com" id="contact-link">Contact</a></li>
     </ul>
   </nav>
 
@@ -234,43 +242,64 @@
 <script>
   var buttons = document.querySelectorAll('nav button[data-panel]');
   var panels = document.querySelectorAll('.panel');
-  var brandBlock = document.querySelector('.brand-block');
+  var brandBig = document.getElementById('brand-big');
+  var brandSmall = document.getElementById('brand-small');
   var sectionTitle = document.getElementById('section-title');
-  var homeBtn = document.getElementById('home-btn');
   var contactLink = document.getElementById('contact-link');
+  var activeEl = null;
 
-  function closeAll() {
+  function resetHero() {
     panels.forEach(function (p) { p.classList.remove('visible'); });
-    buttons.forEach(function (b) { b.classList.remove('active'); b.classList.remove('hidden'); });
-    brandBlock.classList.remove('shrunk');
+    brandBig.classList.remove('hidden-fade');
+    brandSmall.classList.remove('visible');
     sectionTitle.classList.remove('visible');
-    homeBtn.classList.remove('visible');
-    contactLink.classList.remove('hidden');
   }
 
-  contactLink.addEventListener('click', function () {
-    contactLink.classList.add('hidden');
-    homeBtn.classList.add('visible');
-  });
+  function deactivateCurrent() {
+    if (!activeEl) return;
+    if (activeEl.hasAttribute('data-label')) {
+      activeEl.textContent = activeEl.getAttribute('data-label');
+    } else {
+      activeEl.textContent = 'Contact';
+    }
+    activeEl.classList.remove('active');
+    activeEl = null;
+    resetHero();
+  }
 
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
+      if (activeEl === btn) {
+        deactivateCurrent();
+        return;
+      }
+      if (activeEl) { deactivateCurrent(); }
+
       var targetId = btn.getAttribute('data-panel');
       var label = btn.getAttribute('data-label');
-      var isOpen = document.getElementById(targetId).classList.contains('visible');
 
-      closeAll();
+      document.getElementById(targetId).classList.add('visible');
+      brandBig.classList.add('hidden-fade');
+      brandSmall.classList.add('visible');
+      sectionTitle.textContent = label;
+      sectionTitle.classList.add('visible');
 
-      if (!isOpen) {
-        document.getElementById(targetId).classList.add('visible');
-        btn.classList.add('active');
-        btn.classList.add('hidden');
-        brandBlock.classList.add('shrunk');
-        sectionTitle.textContent = label;
-        sectionTitle.classList.add('visible');
-        homeBtn.classList.add('visible');
-      }
+      btn.textContent = 'Home';
+      btn.classList.add('active');
+      activeEl = btn;
     });
+  });
+
+  contactLink.addEventListener('click', function (e) {
+    if (activeEl === contactLink) {
+      e.preventDefault();
+      deactivateCurrent();
+      return;
+    }
+    if (activeEl) { deactivateCurrent(); }
+    contactLink.textContent = 'Home';
+    contactLink.classList.add('active');
+    activeEl = contactLink;
   });
 
   homeBtn.addEventListener('click', closeAll);
