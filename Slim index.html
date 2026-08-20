@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phoenix | Music Selector</title>
+<meta name="description" content="Phoenix is a DJ and music selector based in Washington, DC, blending genres and crafting immersive listening experiences across music, film, and art.">
+<meta name="keywords" content="Phoenix, Music Selector, DJ, Music, American Dreaming, Gallery, Art, Adrian Loving, Avi Cohen, DC, Washington DC, UX, Experience Design, Service Design, Curator, Sound Design, Nightlife, Live Music, Booking">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&family=Urbanist:wght@100;200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<iframe id="sc-iframe" title="SoundCloud Player" style="position:absolute; left:-9999px; width:1px; height:1px" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/15621148&auto_play=false"></iframe>
+<audio id="contact-audio" src="assets/contact-adlibs.mp3" preload="auto"></audio>
+<audio id="stars-pipes-audio" src="assets/stars-and-pipes-audio.mp3" preload="auto"></audio>
+
+<div id="bg-base"></div>
+<div id="bg-black-overlay"></div>
+
+<div id="bg-image" class="bg-image">
+  <div id="bg-image-plain" class="bg-image-plain"></div>
+  <div id="bg-image-stack" class="bg-image-stack" style="display:none">
+    <div class="stack-item" id="stack-item-1"></div>
+    <div class="stack-item" id="stack-item-2"></div>
+    <div class="stack-item" id="stack-item-3"></div>
+  </div>
+  <div class="bg-image-overlay" id="bg-image-overlay"></div>
+</div>
+
+<div id="bg-video">
+  <iframe id="bg-vimeo-iframe" allow="autoplay; encrypted-media" title="Background video"></iframe>
+  <div class="bg-video-overlay"></div>
+</div>
+
+<button id="bg-mute-btn" aria-label="Toggle background video sound"></button>
+
+<div id="page-fade">
+  <header>
+    <span id="prefix"></span>
+    <span class="title">Phoenix</span>
+    <span class="subtitle">Music Selector</span>
+  </header>
+  <main id="content"></main>
+  <nav><ul id="nav-list"></ul></nav>
+</div>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
