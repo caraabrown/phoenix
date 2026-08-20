@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phoenix — Music Selector</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Keep the Phoenix / Music Selector header fixed; only #prefix fades in script.js. */
+    #page-fade > header { position: sticky; top: 0; z-index: 3; background: transparent; }
+    .album-art--fade { opacity: 0; transform: translateY(4px); transition: opacity 700ms ease, transform 700ms ease; }
+    .album-art--fade.is-visible { opacity: 1; transform: translateY(0); }
+  </style>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <script src="https://player.vimeo.com/api/player.js"></script>
+</head>
+<body>
+  <iframe id="sc-iframe" title="SoundCloud Player" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/15621148&auto_play=false" style="position:absolute;left:-9999px;width:1px;height:1px;border:0"></iframe>
+  <div id="bg-base"></div>
+  <div id="bg-black-overlay"></div>
+  <div id="bg-image" class="bg-image">
+    <div id="bg-image-plain" class="bg-image-plain"></div>
+    <div id="bg-image-stack" class="bg-image-stack">
+      <div id="stack-item-1" class="stack-item"></div>
+      <div id="stack-item-2" class="stack-item"></div>
+      <div id="stack-item-3" class="stack-item"></div>
+    </div>
+    <div id="bg-image-overlay" class="bg-image-overlay"></div>
+  </div>
+  <div id="bg-video" class="bg-video">
+    <iframe id="bg-vimeo-iframe" title="Background video" allow="autoplay; fullscreen; picture-in-picture" class="bg-vimeo-iframe"></iframe>
+    <div class="bg-video-overlay"></div>
+  </div>
+  <button id="bg-mute-btn" type="button" aria-label="Toggle background-video sound"></button>
+  <main id="page-fade">
+    <header>
+      <span id="prefix" class="prefix"></span>
+      <span class="title">Phoenix</span>
+      <span class="subtitle">Music Selector</span>
+    </header>
+    <section id="content"></section>
+    <nav><ul id="nav-list"></ul></nav>
+  </main>
+  <audio id="contact-audio" src="assets/contact-audio.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
