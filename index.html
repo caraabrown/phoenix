@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,31 +10,33 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&family=Urbanist:wght@100;200;300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-  <style>
-    /* Keep the Phoenix / Music Selector header fixed; only #prefix fades in script.js. */
-    #page-fade > header { position: sticky; top: 0; z-index: 3; background: transparent; }
-    .album-art--fade { opacity: 0; transform: translateY(4px); transition: opacity 700ms ease, transform 700ms ease; }
-    .album-art--fade.is-visible { opacity: 1; transform: translateY(0); }
-  </style>
-  <script src="https://w.soundcloud.com/player/api.js"></script>
-<script src="https://player.vimeo.com/api/player.js"></script>
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
 <iframe id="sc-iframe" title="SoundCloud Player" style="position:absolute; left:-9999px; width:1px; height:1px" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/15621148&auto_play=false"></iframe>
-<audio id="contact-audio" src="assets/contact-audio.mp3" preload="auto"></audio>
+<audio id="contact-audio" src="assets/contact-adlibs.mp3" preload="auto"></audio>
 <audio id="stars-pipes-audio" src="assets/stars-and-pipes-audio.mp3" preload="auto"></audio>
 
 <div id="bg-base"></div>
 <div id="bg-black-overlay"></div>
 
 <div id="bg-image" class="bg-image">
-  <div id="bg-image-plain" class="bg-image-plain"></div>
-  <div id="bg-image-stack" class="bg-image-stack" style="display:none">
-    <div class="stack-item" id="stack-item-1"></div>
-    <div class="stack-item" id="stack-item-2"></div>
-    <div class="stack-item" id="stack-item-3"></div>
+  <div id="bg-layer-0" class="bg-image-layer">
+    <div class="bg-image-plain"></div>
+    <div class="bg-image-stack" style="display:none">
+      <div class="stack-item"></div>
+      <div class="stack-item"></div>
+      <div class="stack-item"></div>
+    </div>
+  </div>
+  <div id="bg-layer-1" class="bg-image-layer">
+    <div class="bg-image-plain"></div>
+    <div class="bg-image-stack" style="display:none">
+      <div class="stack-item"></div>
+      <div class="stack-item"></div>
+      <div class="stack-item"></div>
+    </div>
   </div>
   <div class="bg-image-overlay" id="bg-image-overlay"></div>
 </div>
@@ -44,6 +47,7 @@
 </div>
 
 <button id="bg-mute-btn" aria-label="Toggle background video sound"></button>
+
 <div id="page-fade">
   <header>
     <span id="prefix"></span>
@@ -54,6 +58,8 @@
   <nav><ul id="nav-list"></ul></nav>
 </div>
 
-<script src="script.js"></script>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>
