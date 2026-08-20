@@ -1,138 +1,135 @@
 (function () {
   'use strict';
 
-  var PLAY_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="#8ecdfb"><polygon points="8,4 20,12 8,20"></polygon></svg>';
-  var PAUSE_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="#8ecdfb"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>';
-  var MUTE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8ecdfb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
-  var UNMUTE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8ecdfb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 010 7.07"></path><path d="M19.07 4.93a10 10 0 010 14.14"></path></svg>';
-  var SMS_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f5f0e6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>';
-  var MAIL_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f5f0e6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>';
-  var IG_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f5f0e6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>';
-
+  var PLAY = '<svg width="12" height="12" viewBox="0 0 24 24" fill="#8ecdfb"><polygon points="8,4 20,12 8,20"></polygon></svg>';
+  var PAUSE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="#8ecdfb"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>';
+  var MUTE = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8ecdfb" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
+  var UNMUTE = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8ecdfb" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 010 7.07"></path><path d="M19.07 4.93a10 10 0 010 14.14"></path></svg>';
   var TRACKS = [
-    { name: 'Love Sick', url: 'https://soundcloud.com/phoenixrox/love-sick-pt-1' },
+    { name: 'Love Sick', url: 'https://soundcloud.com/phoenixrox/love-sick-pt-1', art: 'assets/love-sick-album-art.jpg' },
     { name: 'Light Side of the Moon', url: 'https://soundcloud.com/phoenixrox/light-side-of-the-moon-phoenix' },
-    { name: 'Stars & Pipes', url: '' },
+    { name: 'Stars & Pipes', url: '', clip: true },
     { name: 'Welcome to the Zoo', url: 'https://soundcloud.com/phoenixrox/welcome-to-the-zoo' },
     { name: 'I am Your Creative Avenger', url: 'https://soundcloud.com/americandreamingmagazine/im-your-creative-avenger' },
-    { name: 'Whaaaat!', url: 'https://soundcloud.com/phoenixrox/whaaaa' },
+    { name: 'Whaaaat!', url: 'https://soundcloud.com/phoenixrox/whaaaa', art: 'assets/whaat-album-art.jpg' },
     { name: 'Do That Shit Then', url: 'https://soundcloud.com/phoenixrox/do-that-then' }
   ];
-  var BG_PAGES = { music: 'assets/bg-music.jpg', about: 'assets/bg-about.png' };
-  var PREFIXES = { about: 'About', music: 'Music by', cv: 'Experience Work by', booking: 'Contact' };
-  var NAV_MAP = {
-    home: [['About', 'about'], ['Music', 'music'], ['CV', 'cv'], ['Contact', 'booking']],
-    about: [['Home', 'home'], ['Music', 'music'], ['CV', 'cv'], ['Contact', 'booking']],
-    music: [['Home', 'home'], ['About', 'about'], ['CV', 'cv'], ['Contact', 'booking']],
-    cv: [['Home', 'home'], ['About', 'about'], ['Music', 'music'], ['Contact', 'booking']],
-    booking: [['About', 'about'], ['Music', 'music'], ['CV', 'cv']]
+  var PAGES = { about: 'About', music: 'Music by', cv: 'Experience Work by', booking: 'Contact' };
+  var NAV = {
+    home: [['About','about'],['Music','music'],['CV','cv'],['Contact','booking']],
+    about: [['Home','home'],['Music','music'],['CV','cv'],['Contact','booking']],
+    music: [['Home','home'],['About','about'],['CV','cv'],['Contact','booking']],
+    cv: [['Home','home'],['About','about'],['Music','music'],['Contact','booking']],
+    booking: [['About','about'],['Music','music'],['CV','cv']]
   };
-  var CONTENT_FADE_MS = 2000;
-  var state = { page: 'home', transitioning: false, scPlaying: false, scProgress: 0, scTime: '0:00', scDuration: 0, currentTrackUrl: TRACKS[1].url, bgMuted: false };
-  var el = {}, scWidget = null, scInitAttempts = 0;
-  var bgPlayer = null, bgInitAttempts = 0, bgCurrentId = null, reel = null, reelIndex = 0, bgAdvanceTimer = null;
-  var contactAudioTimer = null, contactAudioFadeRAF = null;
+  var state = { page: 'home', track: TRACKS[1], playing: false, duration: 0, time: '0:00', progress: 0, muted: false };
+  var el = {}, sc = null, player = null, playerId = null, endTimer = null;
 
   document.addEventListener('DOMContentLoaded', init);
   function init() {
-    ['bg-black-overlay', 'bg-image', 'bg-image-plain', 'bg-image-stack', 'bg-image-overlay', 'bg-video', 'bg-vimeo-iframe', 'bg-mute-btn', 'prefix', 'content', 'nav-list', 'page-fade'].forEach(function (id) {
-      var key = id.replace(/-([a-z])/g, function (_, c) { return c.toUpperCase(); });
-      el[key] = document.getElementById(id);
-    });
-    el.bgBlackOverlay = el.bgBlackOverlay || document.getElementById('bg-black-overlay');
-    el.bgImage = el.bgImage || document.getElementById('bg-image');
-    el.bgImagePlain = el.bgImagePlain || document.getElementById('bg-image-plain');
-    el.bgImageStack = el.bgImageStack || document.getElementById('bg-image-stack');
-    el.bgImageOverlay = el.bgImageOverlay || document.getElementById('bg-image-overlay');
-    el.bgVideo = el.bgVideo || document.getElementById('bg-video');
-    el.bgVimeoIframe = el.bgVimeoIframe || document.getElementById('bg-vimeo-iframe');
-    el.bgMuteBtn = el.bgMuteBtn || document.getElementById('bg-mute-btn');
-    el.pageFade = el.pageFade || document.getElementById('page-fade');
-    el.bgMuteBtn.innerHTML = UNMUTE_ICON;
-    el.bgMuteBtn.addEventListener('click', toggleBgMute);
-    initSC();
-    renderPage();
+    el.black = document.getElementById('bg-black-overlay');
+    el.image = document.getElementById('bg-image');
+    el.plain = document.getElementById('bg-image-plain');
+    el.stack = document.getElementById('bg-image-stack');
+    el.overlay = document.getElementById('bg-image-overlay');
+    el.video = document.getElementById('bg-video');
+    el.frame = document.getElementById('bg-vimeo-iframe');
+    el.mute = document.getElementById('bg-mute-btn');
+    el.prefix = document.getElementById('prefix');
+    el.content = document.getElementById('content');
+    el.nav = document.getElementById('nav-list');
+    if (el.mute) { el.mute.innerHTML = UNMUTE; el.mute.addEventListener('click', toggleMute); }
+    initSoundCloud();
+    render();
   }
-  function fmt(ms) { var t = Math.floor(ms / 1000), m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
-  function initSC() {
-    if (scWidget || scInitAttempts++ > 20) return;
-    if (!window.SC || !window.SC.Widget) return setTimeout(initSC, 500);
-    var iframe = document.getElementById('sc-iframe');
-    if (!iframe) return setTimeout(initSC, 500);
-    try {
-      scWidget = SC.Widget(iframe);
-      scWidget.bind(SC.Widget.Events.READY, function () { scWidget.getDuration(function (d) { state.scDuration = d; }); });
-      scWidget.bind(SC.Widget.Events.PLAY_PROGRESS, function (data) { if (state.scDuration) { state.scProgress = data.currentPosition / state.scDuration * 100; state.scTime = fmt(data.currentPosition); updatePlayerUI(); } });
-      scWidget.bind(SC.Widget.Events.FINISH, function () { state.scPlaying = false; updatePlayerUI(); });
-    } catch (e) { scWidget = null; setTimeout(initSC, 1000); }
+  function initSoundCloud() {
+    if (sc || !window.SC || !window.SC.Widget) return setTimeout(initSoundCloud, 300);
+    var frame = document.getElementById('sc-iframe'); if (!frame) return;
+    sc = SC.Widget(frame);
+    sc.bind(SC.Widget.Events.READY, function () { sc.getDuration(function (d) { state.duration = d; }); });
+    sc.bind(SC.Widget.Events.PLAY_PROGRESS, function (d) { if (state.duration) { state.progress = d.currentPosition / state.duration * 100; state.time = clock(d.currentPosition); updatePlayer(); } });
+    sc.bind(SC.Widget.Events.FINISH, function () { state.playing = false; updatePlayer(); });
   }
-  function pauseMainPlayer() { if (scWidget && state.scPlaying) { scWidget.pause(); state.scPlaying = false; updatePlayerUI(); } }
-  function togglePlay() { if (!scWidget) return; if (state.scPlaying) scWidget.pause(); else scWidget.play(); state.scPlaying = !state.scPlaying; updatePlayerUI(); }
-  function seekTo(e) { if (!scWidget || !state.scDuration) return; var r = e.currentTarget.getBoundingClientRect(); scWidget.seekTo((e.clientX - r.left) / r.width * state.scDuration); }
-  function loadTrack(track) {
-    if (track.name === 'Stars & Pipes') { playStarsAndPipesVideo(); return; }
-    if (!track.url || track.url === state.currentTrackUrl || !scWidget) return;
-    scWidget.load(track.url, { auto_play: true, callback: function () { scWidget.getDuration(function (d) { state.scDuration = d; }); } });
-    state.currentTrackUrl = track.url; state.scPlaying = true; state.scProgress = 0; state.scTime = '0:00'; el.content.innerHTML = musicHTML(); attachPageListeners();
+  function clock(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+  function stopMusic() { if (sc) sc.pause(); state.playing = false; updatePlayer(); }
+  function toggleMusic() { if (!sc) return; if (state.playing) sc.pause(); else sc.play(); state.playing = !state.playing; updatePlayer(); }
+  function chooseTrack(track) {
+    if (track.clip) { playStarsPipes(); return; }
+    if (!sc || track === state.track) return;
+    sc.load(track.url, { auto_play: true, callback: function () { sc.getDuration(function (d) { state.duration = d; }); } });
+    state.track = track; state.playing = true; state.progress = 0; state.time = '0:00'; render();
   }
-  function updatePlayerUI() { var b = document.getElementById('play-btn'), f = document.getElementById('progress-fill'), t = document.getElementById('time-label'); if (b) b.innerHTML = state.scPlaying ? PAUSE_ICON : PLAY_ICON; if (f) f.style.width = state.scProgress + '%'; if (t) t.textContent = state.scTime; }
-  function playContactAudio() {
-    var a = document.getElementById('contact-audio'); if (!a) return;
-    a.currentTime = 0; a.volume = 1; a.play().catch(function () {});
-    if (contactAudioTimer) clearTimeout(contactAudioTimer); if (contactAudioFadeRAF) cancelAnimationFrame(contactAudioFadeRAF);
-    contactAudioTimer = setTimeout(function () { var volume = a.volume, started = performance.now(); function step(now) { var p = Math.min(1, (now - started) / 2000); a.volume = volume * (1 - p); if (p < 1) contactAudioFadeRAF = requestAnimationFrame(step); else a.pause(); } contactAudioFadeRAF = requestAnimationFrame(step); }, 27000);
+  function updatePlayer() {
+    var button = document.getElementById('play-btn'), fill = document.getElementById('progress-fill'), time = document.getElementById('time-label');
+    if (button) button.innerHTML = state.playing ? PAUSE : PLAY;
+    if (fill) fill.style.width = state.progress + '%';
+    if (time) time.textContent = state.time;
   }
-  function stopStarsAndPipesAudio() { var a = document.getElementById('stars-pipes-audio'); if (a) { a.pause(); a.currentTime = 0; } }
-  function clearBgAdvanceTimer() { if (bgAdvanceTimer) { clearTimeout(bgAdvanceTimer); bgAdvanceTimer = null; } }
-  function hideBgImage() { el.bgImage.classList.remove('active'); el.bgImage.style.opacity = '0'; }
-  function hideBgVideo() { el.bgVideo.classList.remove('active'); el.bgVideo.style.opacity = '0'; el.bgMuteBtn.classList.remove('active'); }
-  function resetBgVideoState() { reel = null; bgPlayer = null; bgCurrentId = null; clearBgAdvanceTimer(); hideBgVideo(); }
-  function showCvBgImage(url, opts) {
-    opts = opts || {}; el.bgImageStack.style.display = opts.stacked ? 'flex' : 'none'; el.bgImagePlain.style.display = opts.stacked ? 'none' : 'block';
-    if (opts.stacked) [1, 2, 3].forEach(function (i) { document.getElementById('stack-item-' + i).style.backgroundImage = "url('" + url + "')"; });
-    else { el.bgImagePlain.style.backgroundImage = "url('" + url + "')"; el.bgImagePlain.style.backgroundSize = opts.size || 'contain'; el.bgImagePlain.style.backgroundPosition = opts.size === 'cover' ? 'center center' : 'center right'; }
-    el.bgImageOverlay.style.background = 'rgba(0,0,0,' + (opts.overlay != null ? opts.overlay : 0.65) + ')'; el.bgImage.style.transition = 'opacity 1500ms ease-in-out'; el.bgImage.classList.add('active'); el.bgImage.style.opacity = '0'; setTimeout(function () { el.bgImage.style.opacity = '1'; }, 50); if (opts.sequence) runBgSequence();
+  function seek(e) { if (!sc || !state.duration) return; var r = e.currentTarget.getBoundingClientRect(); sc.seekTo((e.clientX - r.left) / r.width * state.duration); }
+
+  function clearEndTimer() { if (endTimer) { clearTimeout(endTimer); endTimer = null; } }
+  function hideImage() { if (el.image) { el.image.classList.remove('active'); el.image.style.opacity = '0'; } }
+  function hideVideo() { if (el.video) { el.video.classList.remove('active'); el.video.style.opacity = '0'; } if (el.mute) el.mute.classList.remove('active'); }
+  function showStack(src) {
+    stopMusic(); clearEndTimer(); hideVideo();
+    el.stack.style.display = 'flex'; el.plain.style.display = 'none';
+    [1,2,3].forEach(function (n) { document.getElementById('stack-item-' + n).style.backgroundImage = "url('" + src + "')"; });
+    el.overlay.style.background = 'rgba(0,0,0,.65)'; el.image.classList.add('active'); el.image.style.opacity = '0'; requestAnimationFrame(function () { el.image.style.opacity = '1'; });
   }
-  function runBgSequence() { el.pageFade.style.transition = 'opacity 2.5s ease-in-out'; el.pageFade.style.opacity = '0'; setTimeout(function () { el.pageFade.style.opacity = '1'; }, 3000); }
-  function showMightyAphroditeImage(e) { if (e) e.preventDefault(); pauseMainPlayer(); stopStarsAndPipesAudio(); resetBgVideoState(); showCvBgImage('assets/mighty-aphrodite.png', { stacked: true, overlay: 0.65 }); }
-  function showGuessDjImage(e) { if (e) e.preventDefault(); pauseMainPlayer(); stopStarsAndPipesAudio(); resetBgVideoState(); showCvBgImage('assets/guess-dj.jpg', { stacked: true, overlay: 0.65 }); }
-  function showLamontBishopImage(e) { if (e) e.preventDefault(); pauseMainPlayer(); stopStarsAndPipesAudio(); resetBgVideoState(); showCvBgImage('assets/lamont-bishop.png', { size: 'contain', overlay: 0.65 }); }
-  function showAmericanDreamingImage(e) { if (e) e.preventDefault(); pauseMainPlayer(); stopStarsAndPipesAudio(); resetBgVideoState(); showCvBgImage('assets/american-dreaming.png', { size: 'cover', overlay: 0.72 }); }
-  function playStarsAndPipesVideo(e) { if (e) e.preventDefault(); playBgVideo('10589479', 0, 42); }
-  function setBgVideoIframeSrc(id) { el.bgVimeoIframe.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&muted=0&controls=0&dnt=1&background=0'; }
-  function playBgVideo(id, start, end) { reel = null; pauseMainPlayer(); stopStarsAndPipesAudio(); state.bgMuted = false; el.bgMuteBtn.innerHTML = UNMUTE_ICON; playClip(id, start, end, true); }
-  function playReel(e) { if (e) e.preventDefault(); pauseMainPlayer(); stopStarsAndPipesAudio(); state.bgMuted = false; el.bgMuteBtn.innerHTML = UNMUTE_ICON; reel = [{ id: '90561744', start: 0, end: 75 }, { id: '33052855', start: 11, end: 41 }, { id: '39578046', start: 81, end: 114 }, { id: '10589479', start: 9, end: 69 }]; reelIndex = 0; playClip(reel[0].id, reel[0].start, reel[0].end, true); }
-  function playClip(id, start, end, fadeIn) {
-    function startPlayback() {
-      var p = bgPlayer; p.setVolume(0);
-      var seek = start > 0 ? p.setCurrentTime(start).catch(function () {}) : Promise.resolve();
-      Promise.race([seek, new Promise(function (r) { setTimeout(r, 800); })]).then(function () { var playing = p.play(); Promise.race([(playing && playing.then) ? playing.catch(function () {}) : Promise.resolve(), new Promise(function (r) { setTimeout(r, 500); })]).then(function () { if (!state.bgMuted) p.setVolume(0.4); }); });
-      scheduleAdvance(id, start, end);
+  function showImage(src, size, overlay) {
+    stopMusic(); clearEndTimer(); hideVideo(); el.stack.style.display = 'none'; el.plain.style.display = 'block';
+    el.plain.style.backgroundImage = "url('" + src + "')"; el.plain.style.backgroundSize = size || 'contain'; el.plain.style.backgroundPosition = size === 'cover' ? 'center' : 'center right';
+    el.overlay.style.background = 'rgba(0,0,0,' + (overlay == null ? .65 : overlay) + ')'; el.image.classList.add('active'); el.image.style.opacity = '0'; requestAnimationFrame(function () { el.image.style.opacity = '1'; });
+  }
+  function playStarsPipes(e) { if (e) e.preventDefault(); playVideo('10589479', 0, 42, false); }
+  function playVideo(id, start, end, loop) {
+    stopMusic(); hideImage(); clearEndTimer(); state.muted = false; if (el.mute) el.mute.innerHTML = UNMUTE;
+    function startClip() {
+      var seekTo = start ? player.setCurrentTime(start).catch(function () {}) : Promise.resolve();
+      Promise.race([seekTo, new Promise(function (r) { setTimeout(r, 800); })]).then(function () { player.setVolume(0); var p = player.play(); Promise.resolve(p).catch(function () {}).then(function () { if (!state.muted) player.setVolume(.4); }); });
+      endTimer = setTimeout(function () {
+        if (loop) playVideo(id, start, end, true);
+        else { player.pause().catch(function () {}); }
+      }, Math.max(0, (end - start) * 1000));
     }
-    if (bgPlayer && bgCurrentId) { if (bgCurrentId === id) startPlayback(); else bgPlayer.loadVideo(id).then(function () { bgCurrentId = id; startPlayback(); }); }
-    else { bgInitAttempts = 0; setBgVideoIframeSrc(id); initBgPlayer(function () { bgCurrentId = id; startPlayback(); }); }
-    hideBgImage(); el.bgVideo.classList.add('active'); el.bgVideo.style.transition = 'opacity 2000ms ease-in-out'; el.bgVideo.style.opacity = '0'; el.bgMuteBtn.classList.add('active');
-    if (fadeIn) { requestAnimationFrame(function () { requestAnimationFrame(function () { el.bgVideo.style.opacity = '1'; }); }); runBgSequence(); }
+    if (player && playerId === id) startClip();
+    else {
+      if (player) player.loadVideo(id).then(function () { playerId = id; startClip(); });
+      else {
+        el.frame.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&muted=0&controls=0&dnt=1&background=0';
+        waitForVimeo(function () { playerId = id; startClip(); });
+      }
+    }
+    el.video.classList.add('active'); el.video.style.opacity = '0'; if (el.mute) el.mute.classList.add('active'); requestAnimationFrame(function () { el.video.style.opacity = '1'; });
   }
-  function fadeVolume(from, to, duration, done) { var steps = 10, i = 0; function step() { i++; if (bgPlayer) bgPlayer.setVolume(Math.max(0, from + (to - from) * i / steps)); if (i < steps) setTimeout(step, duration / steps); else if (done) done(); } step(); }
-  function scheduleAdvance(id, start, end) { clearBgAdvanceTimer(); var total = (end - start) * 1000, fade = Math.min(1000, total / 3); bgAdvanceTimer = setTimeout(function () { var next = reel ? reel[reelIndex = (reelIndex + 1) % reel.length] : { id: id, start: start, end: end }; crossfadeTo(next.id, next.start, next.end, fade); }, Math.max(total - fade, 0)); }
-  function crossfadeTo(id, start, end, fade) { fadeVolume(state.bgMuted ? 0 : 0.4, 0, fade || 1000, function () { el.bgVideo.style.opacity = '0'; setTimeout(function () { if (bgCurrentId === id) playClip(id, start, end, false); else bgPlayer.loadVideo(id).then(function () { bgCurrentId = id; playClip(id, start, end, false); }); }, 500); }); }
-  function initBgPlayer(ready) { if (bgPlayer || bgInitAttempts++ > 20) return; if (!window.Vimeo || !window.Vimeo.Player) return setTimeout(function () { initBgPlayer(ready); }, 250); try { bgPlayer = new Vimeo.Player(el.bgVimeoIframe); bgPlayer.ready().then(ready).catch(function () { bgPlayer = null; setTimeout(function () { initBgPlayer(ready); }, 500); }); } catch (e) { bgPlayer = null; setTimeout(function () { initBgPlayer(ready); }, 500); } }
-  function toggleBgMute() { if (!bgPlayer) return; var muted = !state.bgMuted; fadeVolume(muted ? 0.4 : 0, muted ? 0 : 0.4, 300); state.bgMuted = muted; el.bgMuteBtn.innerHTML = muted ? MUTE_ICON : UNMUTE_ICON; }
-  function bgImageIsActive() { return el.bgImage.classList.contains('active'); }
+  function waitForVimeo(done) { if (!window.Vimeo || !window.Vimeo.Player) return setTimeout(function () { waitForVimeo(done); }, 250); player = new Vimeo.Player(el.frame); player.ready().then(done); }
+  function toggleMute() { if (!player) return; state.muted = !state.muted; player.setVolume(state.muted ? 0 : .4); el.mute.innerHTML = state.muted ? MUTE : UNMUTE; }
+
   function navigate(page) {
-    if (page === state.page || state.transitioning) return;
-    var enteringBooking = page === 'booking' && state.page !== 'booking', wasCv = state.page === 'cv', leavingMusic = state.page === 'music' && page !== 'music', leavingBg = BG_PAGES[state.page] && !BG_PAGES[page] && bgImageIsActive(), enteringBg = BG_PAGES[page] && page !== state.page;
-    if (page === 'cv') playReel(); state.transitioning = true; el.pageFade.style.transition = 'opacity ' + CONTENT_FADE_MS + 'ms ease-in-out'; el.pageFade.style.opacity = '0'; if (leavingBg || wasCv) hideBgImage();
-    setTimeout(function () { state.page = page; state.transitioning = false; if (leavingBg || wasCv) { resetBgVideoState(); stopStarsAndPipesAudio(); el.bgBlackOverlay.style.opacity = '0'; } if (leavingMusic) el.bgBlackOverlay.style.opacity = '0'; if (enteringBg) { pauseMainPlayer(); showCvBgImage(BG_PAGES[page], { size: 'cover', overlay: 0.65 }); } renderPage(); el.pageFade.style.opacity = '1'; if (enteringBooking) playContactAudio(); }, CONTENT_FADE_MS);
+    if (page === state.page) return;
+    stopMusic();
+    if (state.page === 'cv' && page !== 'cv') { clearEndTimer(); if (player) player.pause().catch(function () {}); hideVideo(); hideImage(); }
+    fadeEyebrow(function () { state.page = page; if (page === 'cv' && state.page !== 'cv' && !player) playReel(); render(); });
   }
-  function updateHeader() { var p = state.page; el.prefix.textContent = PREFIXES[p] || 'Home'; el.prefix.style.visibility = p !== 'home' ? 'visible' : 'hidden'; }
-  function updateNav() { var p = state.page, html = (NAV_MAP[p] || NAV_MAP.home).map(function (i) { return '<li><button type="button" data-nav-target="' + i[1] + '">' + i[0] + '</button></li>'; }).join(''); if (p === 'booking') html += '<li><a href="sms:2024899901" class="icon-link" aria-label="Send text message">' + SMS_ICON + '</a></li><li><a href="mailto:phoenixroxme@gmail.com" class="icon-link" aria-label="Send email">' + MAIL_ICON + '</a></li><li><a href="https://www.instagram.com/phoenixrox.me/" target="_blank" rel="noopener" class="icon-link" aria-label="Instagram">' + IG_ICON + '<span style="font-family:Raleway,sans-serif;font-weight:300;font-size:13px;letter-spacing:1px">@phoenixrox.me</span></a></li>'; el.nav.innerHTML = html; el.nav.querySelectorAll('[data-nav-target]').forEach(function (b) { b.addEventListener('click', function () { navigate(b.getAttribute('data-nav-target')); }); }); }
-  function aboutHTML() { return '<div class="about-block"><p>Phoenix engages audiences by crafting unique listening experiences by blending beats and harmonies, mixing genres; conveying a bevy of feelings and moods. Incorporating user experience design methods Phoenix stands out and leaves people asking &ldquo;Oooh, what song is this?!&rdquo;</p><p>Phoenix is currently working on a book with her music mentor, <a href="https://www.kennedy-center.org/artists/l/lo-lz/adrian-loving/" target="_blank" rel="noopener" title="linktr.ee/soulbrother71">Adrian Loving</a> and legendary celebrity hair stylist Diamond Ken.</p><div class="signup"><p>Get notified when it&rsquo;s released</p><form id="signup-form"><input type="email" id="signup-email" placeholder="Email"><input type="tel" id="signup-phone" placeholder="Phone (for text updates)"><button type="submit">Sign Up</button></form><p class="signup-thanks" id="signup-thanks" style="display:none">Thanks &mdash; you&rsquo;re on the list.</p></div></div>'; }
-  function musicHTML() { var love = state.currentTrackUrl === TRACKS[0].url; el.bgBlackOverlay.style.opacity = love ? '1' : '0'; var art = love ? '<img src="assets/love-sick-album-art.jpg" alt="Love Sick album art" class="album-art">' : ''; var tracks = TRACKS.map(function (t) { var enabled = !!t.url || t.name === 'Stars & Pipes', active = t.url === state.currentTrackUrl; return '<li><button type="button" class="' + (active ? 'active' : enabled ? '' : 'disabled') + '" data-track="' + t.name + '">' + t.name + '</button></li>'; }).join(''); return '<div class="music-block">' + art + '<div class="player-row"><button type="button" class="play-btn" id="play-btn" aria-label="Play or pause">' + (state.scPlaying ? PAUSE_ICON : PLAY_ICON) + '</button><div class="progress-track" id="progress-track"><div class="progress-fill" id="progress-fill" style="width:' + state.scProgress + '%"></div></div><span class="time-label" id="time-label">' + state.scTime + '</span></div><ul class="track-list">' + tracks + '</ul></div>'; }
-  function cvHTML() { return '<div class="cv-block"><div class="cv-col"><span class="cv-label">Work</span><ul><li><a href="https://vimeo.com/33052855?fl=pl&fe=sh" data-action="paradise" rel="noopener">Music Director, Paradise City Documentary</a></li><li><a href="#" data-action="american-dreaming" rel="noopener">Music Director, American Dreaming Magazine</a></li><li><a href="https://vimeo.com/manage/videos/39578046" data-action="forgiato" rel="noopener">Forgiato Commercial</a>, <em>Director <a href="https://www.avicohen.tv/" target="_blank" rel="noopener">Avi Cohen</a></em></li><li><a href="https://vimeo.com/90561744?fl=pl&fe=sh" data-action="kami" rel="noopener">Music Director, Kami Designs</a></li><li><a href="#" data-action="stars-pipes" rel="noopener">Curator, Stars &amp; Pipes: An Exploration of Drugs in America</a>, <em>w/ photographer <a href="https://vimeo.com/7495158?fl=pl&fe=sh" data-action="thi-chien" rel="noopener">Thi Chien</a></em></li><li>DC Commission on the Arts &amp; Humanities, grant recipient</li></ul><span class="cv-label">Media</span><ul><li>DC Modern Luxury Magazine</li><li>American Dreaming Magazine</li></ul></div><div class="cv-col"><span class="cv-label">Performance</span><ul><li>Warner Music Group &amp; Six Flags</li><li>Hello Stranger w/ <a href="https://www.instagram.com/djmindmotion1/" target="_blank" rel="noopener">Mind Motion</a></li><li>The Smugger</li><li><a href="#" data-action="mighty-aphrodite" rel="noopener">Mighty Aphrodite</a></li><li>Recess DC</li><li>Oakland Unified Public School District</li><li>DC Fashion Council</li><li><a href="https://www.instagram.com/pinklineproject/" target="_blank" rel="noopener">The Pink Line Project</a></li></ul><span class="cv-label">Resident Music Selector</span><ul><li><a href="#" data-action="guess-dj" rel="noopener">Guess Clothing Brand</a></li><li>The Smithsonian Textile Museum</li><li><a href="#" data-action="lamont-bishop" rel="noopener">Lamont Bishop Gallery</a></li><li>Vince Gray for (DC) Mayor Campaign</li><li><a href="https://www.instagram.com/bensnextdoordc/?hl=en" target="_blank" rel="noopener">Ben&rsquo;s Next Door</a></li></ul></div></div>'; }
-  function bindAction(name, fn) { var target = el.content.querySelector('[data-action="' + name + '"]'); if (target) target.addEventListener('click', fn); }
-  function submitSignup(e) { e.preventDefault(); var email = document.getElementById('signup-email').value, phone = document.getElementById('signup-phone').value; if (!email && !phone) return; fetch('https://script.google.com/macros/s/AKfycbx1sgJzVv8jAgAuQq7YL1bah7zXlTUfIif9AX2WzYu9gSyPrZBwYxsYwUnPfCS-94pZ6w/exec', { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ email: email, phone: phone }) }).catch(function () {}); document.getElementById('signup-form').style.display = 'none'; document.getElementById('signup-thanks').style.display = 'block'; }
-  function attachPageListeners() { var page = state.page; if (page === 'about') document.getElementById('signup-form').addEventListener('submit', submitSignup); else if (page === 'music') { document.getElementById('play-btn').addEventListener('click', togglePlay); document.getElementById('progress-track').addEventListener('click', seekTo); el.content.querySelectorAll('[data-track]').forEach(function (b) { b.addEventListener('click', function () { var track = TRACKS.filter(function (t) { return t.name === b.getAttribute('data-track'); })[0]; if (track) loadTrack(track); }); }); } else if (page === 'cv') { bindAction('paradise', function (e) { e.preventDefault(); playBgVideo('33052855', 11, 56); }); bindAction('american-dreaming', showAmericanDreamingImage); bindAction('forgiato', function (e) { e.preventDefault(); playBgVideo('39578046', 81, 114); }); bindAction('kami', function (e) { e.preventDefault(); playBgVideo('90561744', 0, 92); }); bindAction('stars-pipes', playStarsAndPipesVideo); bindAction('thi-chien', function (e) { e.preventDefault(); playBgVideo('7495158', 18, 56); }); bindAction('mighty-aphrodite', showMightyAphroditeImage); bindAction('guess-dj', showGuessDjImage); bindAction('lamont-bishop', showLamontBishopImage); } }
-  function renderPage() { updateNav(); updateHeader(); if (state.page === 'about') el.content.innerHTML = aboutHTML(); else if (state.page === 'music') el.content.innerHTML = musicHTML(); else if (state.page === 'cv') el.content.innerHTML = cvHTML(); else el.content.innerHTML = ''; attachPageListeners(); }
+  function fadeEyebrow(done) { if (!el.prefix) return done(); el.prefix.style.transition = 'opacity .45s ease'; el.prefix.style.opacity = '0'; setTimeout(function () { done(); el.prefix.style.opacity = '1'; }, 450); }
+  function playReel() { playVideo('90561744', 0, 75, true); }
+
+  function render() { renderHeader(); renderNav(); el.content.innerHTML = state.page === 'about' ? aboutHTML() : state.page === 'music' ? musicHTML() : state.page === 'cv' ? cvHTML() : ''; bind(); }
+  function renderHeader() { el.prefix.textContent = PAGES[state.page] || 'Home'; el.prefix.style.visibility = state.page === 'home' ? 'hidden' : 'visible'; }
+  function renderNav() { el.nav.innerHTML = (NAV[state.page] || NAV.home).map(function (i) { return '<li><button type="button" data-page="' + i[1] + '">' + i[0] + '</button></li>'; }).join(''); el.nav.querySelectorAll('[data-page]').forEach(function (b) { b.addEventListener('click', function () { navigate(b.getAttribute('data-page')); }); }); }
+  function aboutHTML() { return '<div class="about-block"><p>Phoenix engages audiences by crafting unique listening experiences by blending beats and harmonies, mixing genres; conveying a bevy of feelings and moods. Incorporating user experience design methods Phoenix stands out and leaves people asking &ldquo;Oooh, what song is this?!&rdquo;</p><p>Phoenix is currently working on a book with her music mentor, <a href="https://www.kennedy-center.org/artists/l/lo-lz/adrian-loving/" target="_blank" rel="noopener">Adrian Loving</a> and legendary celebrity hair stylist Diamond Ken.</p></div>'; }
+  function musicHTML() {
+    var art = state.track.art ? '<img class="album-art album-art--fade" src="' + state.track.art + '" alt="' + state.track.name + ' album art">' : '';
+    var tracks = TRACKS.map(function (t) { return '<li><button type="button" class="' + (t === state.track ? 'active' : '') + '" data-track="' + t.name + '">' + t.name + '</button></li>'; }).join('');
+    return '<div class="music-block">' + art + '<div class="player-row"><button type="button" class="play-btn" id="play-btn">' + (state.playing ? PAUSE : PLAY) + '</button><div class="progress-track" id="progress-track"><div class="progress-fill" id="progress-fill" style="width:' + state.progress + '%"></div></div><span class="time-label" id="time-label">' + state.time + '</span></div><ul class="track-list">' + tracks + '</ul></div>';
+  }
+  function cvHTML() { return '<div class="cv-block"><div class="cv-col"><span class="cv-label">Work</span><ul><li><a href="#" data-action="paradise">Music Director, Paradise City Documentary</a></li><li><a href="#" data-action="american">Music Director, American Dreaming Magazine</a></li><li><a href="#" data-action="forgiato">Forgiato Commercial</a></li><li><a href="#" data-action="kami">Music Director, Kami Designs</a></li><li><a href="#" data-action="stars">Curator, Stars &amp; Pipes: An Exploration of Drugs in America</a></li><li>DC Commission on the Arts &amp; Humanities, grant recipient</li></ul><span class="cv-label">Media</span><ul><li>DC Modern Luxury Magazine</li><li>American Dreaming Magazine</li></ul></div><div class="cv-col"><span class="cv-label">Performance</span><ul><li>Warner Music Group &amp; Six Flags</li><li>Hello Stranger w/ Mind Motion</li><li>The Smugger</li><li><a href="#" data-action="mighty">Mighty Aphrodite</a></li><li>Recess DC</li><li>Oakland Unified Public School District</li><li>DC Fashion Council</li><li>The Pink Line Project</li></ul><span class="cv-label">Resident Music Selector</span><ul><li><a href="#" data-action="guess">Guess Clothing Brand</a></li><li>The Smithsonian Textile Museum</li><li><a href="#" data-action="lamont">Lamont Bishop Gallery</a></li><li>Vince Gray for (DC) Mayor Campaign</li><li>Ben&rsquo;s Next Door</li></ul></div></div>'; }
+  function bind() {
+    if (state.page === 'music') { document.getElementById('play-btn').addEventListener('click', toggleMusic); document.getElementById('progress-track').addEventListener('click', seek); el.content.querySelectorAll('[data-track]').forEach(function (b) { b.addEventListener('click', function () { chooseTrack(TRACKS.filter(function (t) { return t.name === b.getAttribute('data-track'); })[0]); }); }); }
+    if (state.page === 'cv') {
+      var actions = { paradise: function () { playVideo('33052855',11,56,true); }, american: function () { showImage('assets/american-dreaming.png','cover',.72); }, forgiato: function () { playVideo('39578046',81,114,true); }, kami: function () { playVideo('90561744',0,92,true); }, stars: playStarsPipes, mighty: function () { showStack('assets/mighty-aphrodite.png'); }, guess: function () { showStack('assets/guess-dj.jpg'); }, lamont: function () { showImage('assets/lamont-bishop.png','contain',.65); } };
+      Object.keys(actions).forEach(function (name) { var target = el.content.querySelector('[data-action="' + name + '"]'); if (target) target.addEventListener('click', function (e) { e.preventDefault(); actions[name](); }); });
+    }
+    var art = el.content.querySelector('.album-art--fade'); if (art) requestAnimationFrame(function () { art.classList.add('is-visible'); });
+  }
 })();
