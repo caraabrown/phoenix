@@ -332,7 +332,7 @@
     resetBgVideoState();
     var audio = document.getElementById('stars-pipes-audio');
     if (audio) { audio.currentTime = 0; audio.play().catch(function () {}); }
-    showCvBgImage('assets/music-stars-and-pipes.jpg', { size: 'cover', overlay: 0.65, duration: 3000, sequence: !skipSequence });
+    showCvBgImage('assets/musicstarsandpipes.JPG', { size: 'cover', overlay: 0.65, duration: 3000, sequence: !skipSequence });
   }
   function setBgVideoIframeSrc(id, start) {
     el.bgVimeoIframe.src = 'https://player.vimeo.com/video/' + id + '?autoplay=0&muted=1&controls=0&dnt=1&background=0' +
