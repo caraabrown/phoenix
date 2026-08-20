@@ -173,7 +173,7 @@
   }
 
   function loadTrack(track) {
-    if (track.url === state.currentTrackUrl || state.transitioning) return;
+    if (track.url === state.currentTrackUrl) return;
     var isLocal = track.name === 'Stars & Pipes';
     if (!isLocal && (!track.url || !scWidget)) return;
     if (state.currentTrackUrl === LOVE_SICK_URL && track.url !== LOVE_SICK_URL) fadeOutAlbumArt();
