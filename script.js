@@ -15,7 +15,7 @@
     { name: 'Stars & Pipes', url: '' },
     { name: 'Welcome to the Zoo', url: 'https://soundcloud.com/phoenixrox/welcome-to-the-zoo' },
     { name: 'I am Your Creative Avenger', url: 'https://soundcloud.com/americandreamingmagazine/im-your-creative-avenger' },
-    { name: 'Whaat!', url: 'https://on.soundcloud.com/zM1FFjIs2tAAyfhHOz' },
+    { name: 'Whaaaat!', url: 'https://soundcloud.com/phoenixrox/whaaaa' },
     { name: 'Do That Shit Then', url: 'https://soundcloud.com/phoenixrox/do-that-then' }
   ];
 
