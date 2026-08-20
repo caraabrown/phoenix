@@ -1,0 +1,68 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; overflow-x: hidden; background: #000; }
+body { font-family: 'Raleway', sans-serif; color: #8ecdfb; }
+a { color: #ffffff; text-decoration: none; }
+a:hover { color: #ffffff; opacity: 0.8; }
+button { font: inherit; }
+
+#bg-base { position: fixed; inset: 0; z-index: 0; background: #000 url('assets/bg-home.jpg') center/cover no-repeat; }
+#bg-black-overlay { position: fixed; inset: 0; z-index: 1; background: #000; opacity: 0; transition: opacity 1500ms ease-in-out; pointer-events: none; }
+
+.bg-image { position: fixed; inset: 0; z-index: 1; background-color: #000; opacity: 0; display: none; }
+.bg-image.active { display: block; }
+.bg-image-plain { position: absolute; inset: 0; background-repeat: no-repeat; }
+.bg-image-overlay { position: absolute; inset: 0; }
+.bg-image-stack { position: absolute; top: 0; right: 0; bottom: 0; width: 42vw; display: flex; flex-direction: column; }
+.bg-image-stack .stack-item { flex: 1 1 0; background-size: contain; background-position: center; background-repeat: no-repeat; }
+
+#bg-video { position: fixed; inset: 0; z-index: 1; overflow: hidden; background: #000; opacity: 0; display: none; }
+#bg-video.active { display: block; }
+#bg-vimeo-iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.78vh; transform: translate(-50%, -50%); border: none; pointer-events: none; }
+.bg-video-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+
+#bg-mute-btn { position: fixed; top: clamp(20px, 4vw, 32px); right: clamp(20px, 4vw, 32px); z-index: 5; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(142,205,251,0.3); background: rgba(0,0,0,0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #8ecdfb; cursor: pointer; display: none; align-items: center; justify-content: center; }
+#bg-mute-btn.active { display: flex; }
+
+#page-fade { position: relative; z-index: 2; min-height: 100dvh; display: flex; flex-direction: column; opacity: 1; }
+
+header { flex: 0 0 auto; padding: 6vh 0 0 clamp(20px, 4vw, 32px); }
+#prefix { display: block; font-family: 'Urbanist', sans-serif; font-weight: 200; font-size: clamp(14px, 2vw, 22px); letter-spacing: 3px; text-transform: uppercase; color: #8ecdfb; margin-bottom: clamp(4px, 1vw, 10px); visibility: hidden; }
+.title { display: block; font-family: 'Urbanist', sans-serif; font-weight: 100; font-size: clamp(64px, 11vw, 180px); line-height: 1; color: #8ecdfb; }
+.subtitle { display: block; font-family: 'Urbanist', sans-serif; font-weight: 100; font-size: clamp(24px, 3.5vw, 56px); line-height: 1.2; letter-spacing: 1px; color: #8ecdfb; }
+
+#content { flex: 1; position: relative; padding: 0 clamp(20px, 4vw, 32px); display: flex; align-items: center; }
+
+nav { flex: 0 0 auto; padding: 0 clamp(20px, 4vw, 32px) clamp(24px, 5vw, 36px); }
+nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 28px); margin: 0; padding: 0; align-items: center; }
+nav button { background: none; border: none; padding: 0; font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #f5f0e6; cursor: pointer; }
+nav .icon-link { display: flex; align-items: center; gap: 8px; opacity: 0.7; }
+
+.about-block { max-width: 620px; width: 100%; }
+.about-block p { font-weight: 300; font-size: 14px; line-height: 1.7; margin: 0; }
+.about-block p + p { margin-top: 16px; }
+.signup { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(245,240,230,0.15); }
+.signup p { font-weight: 300; font-size: 13px; letter-spacing: 1px; color: #8ecdfb; text-transform: uppercase; margin: 0 0 10px; }
+.signup form { display: flex; gap: 10px; flex-wrap: wrap; max-width: 420px; }
+.signup input { flex: 1 1 160px; min-width: 140px; background: transparent; border: none; border-bottom: 1px solid rgba(245,240,230,0.3); color: #f5f0e6; font-family: 'Raleway', sans-serif; font-size: 13px; padding: 6px 2px; outline: none; }
+.signup button { background: none; border: 1px solid rgba(142,205,251,0.5); color: #8ecdfb; font-family: 'Raleway', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; padding: 8px 18px; cursor: pointer; border-radius: 2px; }
+.signup-thanks { font-weight: 300; font-size: 13px; color: #8ecdfb; margin: 10px 0 0; }
+
+.music-block { max-width: 460px; width: 100%; }
+.album-art { width: 160px; height: 160px; object-fit: cover; margin-bottom: 20px; display: block; }
+.player-row { display: flex; align-items: center; gap: 14px; }
+.play-btn { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(142,205,251,0.3); background: rgba(142,205,251,0.04); color: #8ecdfb; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.progress-track { flex: 1; height: 2px; background: rgba(245,240,230,0.12); cursor: pointer; border-radius: 1px; }
+.progress-fill { height: 100%; width: 0%; background: #8ecdfb; border-radius: 1px; box-shadow: 0 0 6px rgba(142,205,251,0.25); transition: width 0.3s linear; }
+.time-label { font-size: 11px; opacity: 0.5; min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; letter-spacing: 0.5px; }
+.track-list { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.track-list button { background: none; border: none; padding: 0; text-align: left; font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 0.5px; cursor: pointer; color: #f5f0e6; opacity: 0.55; }
+.track-list button.active { color: #8ecdfb; opacity: 1; }
+.track-list button.disabled { cursor: default; opacity: 0.25; }
+
+.cv-block { display: flex; flex-wrap: wrap; gap: clamp(16px, 3vw, 32px); max-width: 780px; align-self: flex-start; margin-top: clamp(16px, 4vh, 40px); }
+.cv-col { flex: 1 1 220px; min-width: 180px; }
+.cv-label { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #8ecdfb; opacity: 0.8; margin-bottom: 12px; }
+.cv-col ul { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.cv-col ul:last-child { margin-bottom: 0; }
+.cv-col li { font-weight: 300; font-size: 14px; line-height: 1.7; }
+.cv-col em { font-style: italic; color: #f5f0e6; opacity: 0.55; }
