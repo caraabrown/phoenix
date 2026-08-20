@@ -6,12 +6,13 @@ a:hover { color: #ffffff; opacity: 0.8; }
 button { font: inherit; }
 
 #bg-base { position: fixed; inset: 0; z-index: 0; background: #000 url('assets/bg-home.jpg') center/cover no-repeat; }
-#bg-black-overlay { position: fixed; inset: 0; z-index: 1; background: #000; opacity: 0; transition: opacity 1500ms ease-in-out; pointer-events: none; }
+#bg-black-overlay { position: fixed; inset: 0; z-index: 2; background: #000; opacity: 0; transition: opacity 2000ms ease-in-out; pointer-events: none; }
 
 .bg-image { position: fixed; inset: 0; z-index: 1; background-color: #000; opacity: 0; display: none; }
 .bg-image.active { display: block; }
+.bg-image-layer { position: absolute; inset: 0; opacity: 0; z-index: 1; }
 .bg-image-plain { position: absolute; inset: 0; background-repeat: no-repeat; }
-.bg-image-overlay { position: absolute; inset: 0; }
+.bg-image-overlay { position: absolute; inset: 0; z-index: 3; }
 .bg-image-stack { position: absolute; top: 0; right: 0; bottom: 0; width: 42vw; display: flex; flex-direction: column; }
 .bg-image-stack .stack-item { flex: 1 1 0; background-size: contain; background-position: center; background-repeat: no-repeat; }
 
@@ -24,15 +25,14 @@ button { font: inherit; }
 #bg-mute-btn.active { display: flex; }
 
 #page-fade { position: relative; z-index: 2; min-height: 100dvh; display: flex; flex-direction: column; opacity: 1; }
-
 header { flex: 0 0 auto; padding: 6vh 0 0 clamp(20px, 4vw, 32px); }
-#prefix { display: block; font-family: 'Urbanist', sans-serif; font-weight: 200; font-size: clamp(14px, 2vw, 22px); letter-spacing: 3px; text-transform: uppercase; color: #8ecdfb; margin-bottom: clamp(4px, 1vw, 10px); visibility: hidden; }
+#prefix { display: block; font-family: 'Urbanist', sans-serif; font-weight: 200; font-size: clamp(14px, 2vw, 22px); letter-spacing: 3px; text-transform: uppercase; color: #8ecdfb; margin-bottom: clamp(4px, 1vw, 10px); visibility: hidden; opacity: 1; transition: opacity 2000ms ease-in-out; }
 .title { display: block; font-family: 'Urbanist', sans-serif; font-weight: 100; font-size: clamp(64px, 11vw, 180px); line-height: 1; color: #8ecdfb; }
 .subtitle { display: block; font-family: 'Urbanist', sans-serif; font-weight: 100; font-size: clamp(24px, 3.5vw, 56px); line-height: 1.2; letter-spacing: 1px; color: #8ecdfb; }
 
-#content { flex: 1; position: relative; padding: 0 clamp(20px, 4vw, 32px); display: flex; align-items: center; }
+#content { flex: 1; position: relative; padding: 0 clamp(20px, 4vw, 32px); display: flex; align-items: center; opacity: 1; transition: opacity 2000ms ease-in-out; }
 
-nav { flex: 0 0 auto; padding: 0 clamp(20px, 4vw, 32px) clamp(24px, 5vw, 36px); }
+nav { flex: 0 0 auto; padding: 0 clamp(20px, 4vw, 32px) clamp(24px, 5vw, 36px); opacity: 1; transition: opacity 2000ms ease-in-out; }
 nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 28px); margin: 0; padding: 0; align-items: center; }
 nav button { background: none; border: none; padding: 0; font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #f5f0e6; cursor: pointer; }
 nav .icon-link { display: flex; align-items: center; gap: 8px; opacity: 0.7; }
@@ -48,7 +48,9 @@ nav .icon-link { display: flex; align-items: center; gap: 8px; opacity: 0.7; }
 .signup-thanks { font-weight: 300; font-size: 13px; color: #8ecdfb; margin: 10px 0 0; }
 
 .music-block { max-width: 460px; width: 100%; }
-.album-art { width: 160px; height: 160px; object-fit: cover; margin-bottom: 20px; display: block; }
+@keyframes album-art-in { from { opacity: 0; } to { opacity: 1; } }
+.album-art-slot { height: 180px; flex: 0 0 auto; }
+.album-art { width: 160px; height: 160px; object-fit: cover; margin-bottom: 20px; display: block; animation: album-art-in 2000ms ease-in-out both; }
 .player-row { display: flex; align-items: center; gap: 14px; }
 .play-btn { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(142,205,251,0.3); background: rgba(142,205,251,0.04); color: #8ecdfb; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .progress-track { flex: 1; height: 2px; background: rgba(245,240,230,0.12); cursor: pointer; border-radius: 1px; }
