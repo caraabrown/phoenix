@@ -10,6 +10,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&family=Urbanist:wght@100;200;300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+  <style>
+    /* Keep the Phoenix / Music Selector header fixed; only #prefix fades in script.js. */
+    #page-fade > header { position: sticky; top: 0; z-index: 3; background: transparent; }
+    .album-art--fade { opacity: 0; transform: translateY(4px); transition: opacity 700ms ease, transform 700ms ease; }
+    .album-art--fade.is-visible { opacity: 1; transform: translateY(0); }
+  </style>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </head>
 <body>
 
@@ -36,7 +44,6 @@
 </div>
 
 <button id="bg-mute-btn" aria-label="Toggle background video sound"></button>
-
 <div id="page-fade">
   <header>
     <span id="prefix"></span>
@@ -47,8 +54,6 @@
   <nav><ul id="nav-list"></ul></nav>
 </div>
 
-<script src="https://w.soundcloud.com/player/api.js"></script>
-<script src="https://player.vimeo.com/api/player.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
