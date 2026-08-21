@@ -184,6 +184,15 @@
       showStarsAndPipesImage(null, true);
     } else {
       stopStarsAndPipesAudio();
+      var topLayer = bgLayerEls[bgTopLayer];
+      var atMusicBg = bgImageIsActive() &&
+        topLayer.plain.style.display !== 'none' &&
+        topLayer.plain.style.backgroundImage.indexOf(BG_PAGES.music) !== -1;
+      if (!atMusicBg) {
+        resetBgVideoState();
+        showCvBgImage(BG_PAGES.music, { size: 'cover', overlay: 0.65 });
+      }
+      
       state.localTrack = false;
       scWidget.load(track.url, { auto_play: true, callback: function () {
         scWidget.getDuration(function (d) { state.scDuration = d; });
