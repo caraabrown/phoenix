@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://phoenixrox.me/sitemap.xml
